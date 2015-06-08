@@ -4,5 +4,5 @@ package net.frederico.showtipsview;
  * @date Oct 31, 2014
  */
 public interface ShowTipsViewInterface {
-	public void gotItClicked();
+	void gotItClicked();
 }

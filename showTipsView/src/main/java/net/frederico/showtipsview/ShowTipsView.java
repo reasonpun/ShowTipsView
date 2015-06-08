@@ -1,7 +1,6 @@
 package net.frederico.showtipsview;
 
 import net.fredericosilva.showtipsview.R;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -221,7 +220,7 @@ public class ShowTipsView extends RelativeLayout {
 
 		RelativeLayout texts_layout = new RelativeLayout(getContext());
 
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		LayoutParams params;
 		/*
 		 * Title
 		 */

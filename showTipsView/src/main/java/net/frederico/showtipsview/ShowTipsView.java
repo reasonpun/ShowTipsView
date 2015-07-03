@@ -36,6 +36,7 @@ public class ShowTipsView extends RelativeLayout {
     private boolean custom, displayOneTime;
     private int displayOneTimeID = 0;
     private int delay = 0;
+    private int alpha = 50;
 
     private ShowTipsViewInterface callback;
 
@@ -122,7 +123,7 @@ public class ShowTipsView extends RelativeLayout {
         else
             paint.setColor(Color.parseColor("#000000"));
 
-        paint.setAlpha(50);
+        paint.setAlpha(this.alpha);
         temp.drawRect(0, 0, temp.getWidth(), temp.getHeight(), paint);
 
         transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
@@ -419,4 +420,7 @@ public class ShowTipsView extends RelativeLayout {
         this.circleColor = circleColor;
     }
 
+    public void setAlpha(int alpha) {
+        this.alpha = alpha;
+    }
 }

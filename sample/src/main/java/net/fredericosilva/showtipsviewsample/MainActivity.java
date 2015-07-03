@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
                 .setTarget(btn_one).setTitle("A magnific button")
                 .setDescription("This button do nothing very well")
                 .setDelay(1000)
+                .setAlpha(110)
                 .build();
 
         showtips.show(this);

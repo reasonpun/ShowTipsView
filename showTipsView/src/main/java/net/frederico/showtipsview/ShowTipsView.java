@@ -29,6 +29,10 @@ import android.widget.TextView;
  * @date Oct 31, 2014
  */
 public class ShowTipsView extends RelativeLayout {
+    public final static int ALIGN_TOP_LEFT = 0x000001;
+    public final static int ALIGN_TOP_RIGHT = 0x000002;
+    public final static int ALIGN_BOTTOM_LEFT = 0x000003;
+    public final static int ALIGN_BOTTOM_RIGHT = 0x000004;
     private Point showhintPoints;
     private int radius = 0;
 
@@ -54,6 +58,8 @@ public class ShowTipsView extends RelativeLayout {
     private Paint circleline;
     private Paint transparentPaint;
     private PorterDuffXfermode porterDuffXfermode;
+
+    private int position = ALIGN_BOTTOM_RIGHT;
 
     public ShowTipsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -108,9 +114,9 @@ public class ShowTipsView extends RelativeLayout {
 		/*
          * Draw circle and transparency background
 		 */
-		
+
 		/* 
-		 * Since bitmap needs the canva's size, it wont be load at init() 
+         * Since bitmap needs the canva's size, it wont be load at init()
 		 * To prevent the DrawAllocation issue on low memory devices, the bitmap will be instantiate only when its null
 		 */
         if (bitmap == null) {
@@ -147,6 +153,11 @@ public class ShowTipsView extends RelativeLayout {
     }
 
     boolean isMeasured;
+
+    public void show(final Activity activity, int postion) {
+        this.position = postion;
+        show(activity);
+    }
 
     public void show(final Activity activity) {
         if (isDisplayOneTime() && showTipsStore.hasShown(getDisplayOneTimeID())) {
@@ -248,7 +259,7 @@ public class ShowTipsView extends RelativeLayout {
             text.setTextColor(Color.WHITE);
         text.setTextSize(17);
         params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.BELOW, 123);
+        params.addRule(RelativeLayout.BELOW, R.id.title);
         text.setLayoutParams(params);
 
         texts_layout.addView(text);
@@ -287,10 +298,26 @@ public class ShowTipsView extends RelativeLayout {
 
         params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.rightMargin = 50;
+        if (position == ALIGN_BOTTOM_RIGHT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        } else if (position == ALIGN_BOTTOM_LEFT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else if (position == ALIGN_TOP_LEFT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else if (position == ALIGN_TOP_RIGHT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        } else {
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
+        params.rightMargin = 70;
         params.bottomMargin = 70;
+        params.leftMargin = 70;
+        params.topMargin = 70;
 
         btn_close.setLayoutParams(params);
         btn_close.setOnClickListener(new OnClickListener() {
@@ -307,7 +334,6 @@ public class ShowTipsView extends RelativeLayout {
             }
         });
         this.addView(btn_close);
-
     }
 
     public void setButtonText(String text) {

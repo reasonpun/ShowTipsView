@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
                 .setAlpha(110)
                 .build();
 
-        showtips.show(this);
+        showtips.show(this, ShowTipsView.ALIGN_TOP_LEFT);
 
 
     }
